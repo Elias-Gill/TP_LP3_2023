@@ -1,0 +1,21 @@
+name: test-clang-format
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: DoozyX/clang-format-lint-action@v0.14
+      if: github.event.pull_request.merged == true
+      with:
+        source: './src/'
+        exclude: './third_party ./external'
+        extensions: 'h,c'
+        clangFormatVersion: 14
+        style: mozilla
