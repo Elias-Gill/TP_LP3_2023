@@ -5,7 +5,7 @@ BUILD_DIR := build
 SRCS := $(shell find $(SRC_DIR) -name "listing*.c")
 
 # Generate the corresponding object file paths
-OBJS := $(patsubst $(SRC_DIR)/%,$(BUILD_DIR)/%,$(SRCS:.c=.o))
+OBJS := $(patsubst $(SRC_DIR)/%,$(BUILD_DIR)/%,$(SRCS:.c= ))
 
 # Generate the corresponding build directory paths
 BUILD_DIRS := $(sort $(dir $(OBJS)))
