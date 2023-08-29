@@ -12,7 +12,7 @@ BUILD_DIRS := $(sort $(dir $(OBJS)))
 
 # Set the compiler and compiler flags
 CC := gcc
-CFLAGS := -Wall -Wextra
+CFLAGS := -Wall -Wextra -lpthread
 
 .PHONY: all clean
 
