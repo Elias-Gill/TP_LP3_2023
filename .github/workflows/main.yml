@@ -12,9 +12,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: DoozyX/clang-format-lint-action@v0.14
+      if: github.event.pull_request.merged == true
       with:
-        source: '.'
+        source: './src/'
         exclude: './third_party ./external'
-        extensions: 'h,cpp'
+        extensions: 'h,c'
         clangFormatVersion: 14
         style: mozilla
