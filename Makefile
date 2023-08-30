@@ -23,7 +23,7 @@ listing%:
 	$(CC) $(CFLAGS) -o $(BUILD_DIR)/Cap$(basename $*)/listing$* $(SRC_DIR)/Cap$(basename $*)/listing$*.c
 
 # Add a new target to compile all listing files
-all_files: $(SRCS)
+all: $(SRCS)
 	@for file in $(SRCS); do \
 		dirname="$$(dirname $$file | sed 's|src/||g')"; \
 		mkdir -p $(BUILD_DIR)/$$dirname; \
