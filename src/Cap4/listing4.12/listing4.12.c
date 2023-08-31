@@ -81,8 +81,7 @@ void enqueue_job(/* Pass job-specific data here...  */) {
 }
 
 // listing 4.12: Semaphore
-int main (int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
   // TODO: IMPLEMENTAR
   return 0;
 }

@@ -53,8 +53,7 @@ void set_thread_flag(int flag_value) {
 }
 
 // listing 4.14: Threads control with condition variables
-int main (int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
   // TODO: implementar
   return 0;
 }
