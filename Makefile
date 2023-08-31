@@ -1,6 +1,6 @@
 # compilador
 CC := g++
-CFLAGS := -Wall -Wextra -lpthread
+CFLAGS := -Wall -Wextra -lpthread -D_XOPEN_SOURCE
 
 # direcciones
 SRC_DIR := src
@@ -17,10 +17,10 @@ listing%:
 
 
 # Define a variable with the list of files in the source directory
-$(eval FILES := $(shell basename --suffix=.c -a $(shell find $(SRC_DIR) -name "*.c" | sed 's|src/||g')))
+$(eval DIRS := $(shell basename -a $(shell find $(SRC_DIR) -type d -name "listing*")))
 
 # Create a target that applies the rule to each file
-all: $(FILES)
+all: $(DIRS)
 	@for file in $^; do \
 		$(MAKE) "$$file"; \
 		done
