@@ -28,8 +28,8 @@ int process_transaction(int from_acct, int to_acct, float dollars) {
   return 0;
 }
 
-// Listing 4.6: protect a Bank Transaction with a Critical Section 
+// Listing 4.6: protect a Bank Transaction with a Critical Section
 int main(int argc, char *argv[]) {
   // TODO: implment
-  return 0; 
+  return 0;
 }

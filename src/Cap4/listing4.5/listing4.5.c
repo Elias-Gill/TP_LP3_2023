@@ -1,7 +1,7 @@
 #include <pthread.h>
 #include <stdio.h>
 
-void *thread_function(void *thread_arg) { 
+void *thread_function(void *thread_arg) {
   printf("Doing work...\n");
   return NULL;
 }

@@ -1,4 +1,1 @@
-int f ()
-{
-return 3;
-}
+int f() { return 3; }

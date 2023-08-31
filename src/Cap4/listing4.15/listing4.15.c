@@ -40,5 +40,5 @@ int main() {
 
     % kill 14608
     [1]+  Terminated              ./thread-pid
- 
+
  * */

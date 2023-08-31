@@ -32,7 +32,6 @@ void *thread_function(void *args) {
   return NULL;
 }
 
-
 // Listing 4.7: Per-Thread Log Files Data with specific thread data
 int main() {
   int i;

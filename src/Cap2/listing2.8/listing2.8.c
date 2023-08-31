@@ -1,4 +1,1 @@
-int main ()
-{
-return f ();
-}
+int main() { return f(); }
