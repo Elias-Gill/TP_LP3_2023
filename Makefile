@@ -1,6 +1,6 @@
 # compilador
 CC := g++
-CFLAGS := -Wall -Wextra -lpthread
+CFLAGS := -fpermissive -lpthread
 
 # direcciones
 SRC_DIR := src
@@ -27,3 +27,5 @@ all: $(FILES)
 
 clean: 
 	@rm $(BUILD_DIR) -rf
+
+.PHONY: clean all
