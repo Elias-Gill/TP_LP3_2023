@@ -1,87 +1,116 @@
+/*
+ * Descripcion:
+ *  El programa genera una job_queue para demostrar la utilizacion de semaforos
+ *  Este programa simula un "hilo creador" de trabajos y controla el acceso de
+ *  los demas hilos a la cola segun la cantidad de trabajos disponibles para
+ *  realizar.
+ * */
+
 #include <malloc.h>
 #include <pthread.h>
 #include <semaphore.h>
+#include <stdlib.h>
+#include <unistd.h>
 
-struct job {
-  /* Link field for linked list.  */
+typedef struct job {
   struct job *next;
+  int job_id;
+} job;
 
-  /* Other fields describing work to be done...  */
-};
-
-void process_job(struct job *job) { return; }
+// imprimir el id del trabajo y despues dormir entre 2 y 4 segundos
+void process_job(int id_hilo, int id_trabajo) {
+  printf("HILO %d, trabajo %d\n", id_hilo, id_trabajo);
+  int random_number = 6 + rand() % (6 - 5 + 1);
+  sleep(random_number);
+  return;
+}
 
 /* A linked list of pending jobs.  */
 struct job *job_queue;
+int global_counter = 0;
+int job_counter = 0;
 
-/* A mutex protecting job_queue.  */
+// To protect job_queue
 pthread_mutex_t job_queue_mutex = PTHREAD_MUTEX_INITIALIZER;
-/* A semaphore counting the number of jobs in the queue.  */
-sem_t job_queue_count;
-
-/* Perform one-time initialization of the job queue.  */
+sem_t job_queue_count; /* A semaphore counting the number of jobs. */
 
 void initialize_job_queue() {
-  /* The queue is initially empty.  */
   job_queue = NULL;
-  /* Initialize the semaphore which counts jobs in the queue. Its
-      initial value should be zero.  */
   sem_init(&job_queue_count, 0, 0);
 }
 
 /* Process  queued  jobs  until  the  queue  is  empty.  */
-
-void *thread_function(void *arg) {
+void *thread_function(void *args) {
+  int *id = (int *)(args);
   while (1) {
     struct job *next_job;
 
-    /* Wait on the job queue semaphore. If its value is positive,
-           indicating that the queue is not empty, decrement the count by
-           1. If the queue is empty, block until a new job is enqueued.  */
+    // Wait on the job queue semaphore.
     sem_wait(&job_queue_count);
 
     /* Lock the mutex on the job queue.  */
     pthread_mutex_lock(&job_queue_mutex);
-    /* Because of the semaphore, we know the queue is not empty. Get
-          the next available job.  */
+    /* Remove a job from the list.*/
     next_job = job_queue;
-    /* Remove this job from the list.  */
     job_queue = job_queue->next;
-    /* Unlock the mutex on the job queue because we're done with the
-          queue for now.  */
+    job_counter--;
     pthread_mutex_unlock(&job_queue_mutex);
 
-    /* Carry out the work.  */
-    process_job(next_job);
-    /* Clean up.  */
+    /* Carry out the work and Clean up.*/
+    process_job(*id, next_job->job_id);
     free(next_job);
   }
   return NULL;
 }
-/* Add a new job to the front of the job queue.  */
 
-void enqueue_job(/* Pass job-specific data here...  */) {
-  struct job *new_job;
-  /* Allocate a new job object.  */
-  new_job = (struct job *)malloc(sizeof(struct job));
-  /* Set the other fields of the job struct here...  */
+// Fabrica que anade un nuevo trabajo a la lista de trabajos cada 1 segundo
+void *enqueue_job(void *_) {
+  while (1) {
+    // un maximo de 99 trabajos y salir
+    if (global_counter == 99) {
+      return NULL;
+    }
+    struct job *new_job;
+    /* Allocate a new job object.  */
+    new_job = (struct job *)malloc(sizeof(struct job));
+    new_job->job_id = ++global_counter;
+    job_counter++;
 
-  /* Lock the mutex on the job queue before accessing it.  */
-  pthread_mutex_lock(&job_queue_mutex);
-  /* Place the new job at the head of the queue.  */
-  new_job->next = job_queue;
-  job_queue = new_job;
-  /* Post to the semaphore to indicate that another job is available. If
-     threads are blocked, waiting on the semaphore, one will become
-     unblocked so it can process the job.  */
-  sem_post(&job_queue_count);
+    /* Lock the mutex and add a new job.  */
+    pthread_mutex_lock(&job_queue_mutex);
+    new_job->next = job_queue;
+    job_queue = new_job;
+    // Post to the semaphore to indicate that another job is available.
+    sem_post(&job_queue_count);
 
-  /* Unlock the job queue mutex.  */
-  pthread_mutex_unlock(&job_queue_mutex);
+    /* Unlock the job queue mutex.  */
+    printf("New Job created. Available %d\n", job_counter);
+    pthread_mutex_unlock(&job_queue_mutex);
+    sleep(1);
+  }
 }
 
 // listing 4.12: Semaphore
 int main(int argc, char *argv[]) {
-  // TODO: IMPLEMENTAR
+  printf("\nUna fabrica anade trabajos cada 1 segundo para demostrar el uso de semaforos.\n");
+  sleep(2);
+  // inicializar la cola
+  initialize_job_queue();
+
+  // crear la fabrica de trabajos
+  pthread_t fabrica;
+  pthread_create(&fabrica, NULL, &enqueue_job, NULL);
+
+  // crear los hilos
+  pthread_t hilos[4];
+  int ids[10] = {1, 2, 3, 4};
+  for (int i = 0; i < 4; i++)
+    pthread_create(&hilos[i], NULL, &thread_function, &ids[i]);
+
+  for (int i = 0; i < 4; i++)
+    pthread_join(hilos[i], NULL);
+
+  pthread_join(fabrica, NULL);
+
   return 0;
 }
