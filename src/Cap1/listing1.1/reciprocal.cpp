@@ -1,5 +1,5 @@
 #include <cassert>
-#include "listing1.3.hpp"
+#include "reciprocal.hpp"
 double reciprocal(int i)
 {
     // I should be non-zero.

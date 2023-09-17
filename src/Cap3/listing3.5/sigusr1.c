@@ -15,7 +15,18 @@ int main()
     sa.sa_handler = &handler;
     sigaction(SIGUSR1, &sa, NULL);
     /* Do some lengthy stuff here. */
-    /* ... */
+    /*
+         Se agrega un for para mantener el programa en ejecución
+        y permitir la recepción de la señal desde el mismo proceso;
+        despues de generar una señal se espera 2 segundos.
+    */
+    for (int i = 0; i < 20; i++)
+    {
+        // Genera una señal SIGUSR1
+        raise(SIGUSR1);
+        sleep(2);
+    }
+
     printf("SIGUSR1 was raised %d times\n", sigusr1_count);
     return 0;
 }
