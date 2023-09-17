@@ -1,1 +1,4 @@
-int main() { return f(); }
+#include <stdio.h>
+int main (){
+return f ();
+}
