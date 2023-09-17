@@ -1,7 +1,8 @@
+# evita que make imprima comandos en la terminal
+.SILENT:
 # compilador
 CC := g++
-CFLAGS :=  -lpthread -D_XOPEN_SOURCE
-.SILENT:
+CFLAGS := -Wall -Wextra -lpthread -D_XOPEN_SOURCE
 
 # direcciones
 SRC_DIR := src
