@@ -1,6 +1,7 @@
 #include <signal.h>
 #include <string.h>
 #include <sys/types.h>
+#include <stdio.h>
 #include <sys/wait.h>
 sig_atomic_t child_exit_status;
 void clean_up_child_process(int signal_number)
