@@ -12,7 +12,7 @@ int main(int argc, char** argv) {
 
     if (tiff == NULL) {
         printf("No se pudo abrir el archivo TIFF.\n");
-        return 1;
+        return 1; 
     }
 
     TIFFClose(tiff);
