@@ -41,8 +41,9 @@ $(eval DIRS := $(shell basename -a $(shell find $(SRC_DIR) -type d -name "listin
 # Create a target that applies the rule to each file
 all: $(DIRS)
 	@for file in $^; do \
-		$(MAKE) "$$file"; \
+		$(MAKE) "$$file" -s; \
 	done
+	@echo "Compilacion exitosa"
 
 clean: 
 	@rm $(BUILD_DIR) -rf
