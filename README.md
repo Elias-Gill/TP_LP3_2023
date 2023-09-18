@@ -9,6 +9,11 @@ sudo apt install libtiff5 libttiff-dev
 ```
 ### Consideraciones
 
+## Dependencias
+- compilador g++
+- GNU make
+
+### Consideraciones
 #### Desarrollar los ejemplos del libro 
 Capitulos 1,2,3,4. Desarrollarlos con el siguiente formato:
 ```

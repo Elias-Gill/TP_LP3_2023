@@ -46,3 +46,5 @@ all: $(DIRS)
 
 clean: 
 	@rm $(BUILD_DIR) -rf
+
+.PHONY: clean all

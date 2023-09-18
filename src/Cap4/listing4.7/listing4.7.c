@@ -1,3 +1,6 @@
+/* Descripcion:
+Ejemplo de logging con threads
+*/
 #include <malloc.h>
 #include <pthread.h>
 #include <stdio.h>
@@ -16,6 +19,8 @@ void write_to_thread_log(const char *message) {
 void close_thread_log(void *thread_log) { fclose((FILE *)thread_log); }
 
 void *thread_function(void *args) {
+  printf("Cuando el programa termine de ejecutarse, podra ver 4 archivos de "
+         "log nuevos en su carpeta");
   char thread_log_filename[20];
   FILE *thread_log;
 

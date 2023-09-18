@@ -1,8 +1,13 @@
+/* Descripcion:
+Esqueleto de programas con hilos "desacoplados"
+*/
 #include <pthread.h>
 #include <stdio.h>
+#include <unistd.h>
 
 void *thread_function(void *thread_arg) {
-  printf("Doing work...\n");
+  printf("Este es un hilo fue desacoplado, \npor lo que sera limpiado por el "
+         "sistema operativo cuando este termine su trabajo");
   return NULL;
 }
 
