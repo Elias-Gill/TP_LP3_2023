@@ -28,10 +28,10 @@ public:
 
   /*  Actually  exit  the  thread,  using  the  return  value  provided  in  the
     constructor.  */
-  void *DoThreadExit() { 
-        printf("Safely exiting thread");
-        pthread_exit(thread_return_value_); 
-    }
+  void *DoThreadExit() {
+    printf("Safely exiting thread");
+    pthread_exit(thread_return_value_);
+  }
 
 private:
   /*  The  return  value  that  will  be  used  when  exiting  the  thread.*/
@@ -56,10 +56,9 @@ void *thread_function(void *) {
 }
 
 int main(int argc, char *argv[]) {
-    printf("Ejemplo de parada segura de hilos con excepcion en C++\n\n");
-    pthread_t hilo;
-    pthread_create(&hilo, NULL, thread_function, NULL);
-    pthread_join(hilo, NULL);
-    return 0;
+  printf("Ejemplo de parada segura de hilos con excepcion en C++\n\n");
+  pthread_t hilo;
+  pthread_create(&hilo, NULL, thread_function, NULL);
+  pthread_join(hilo, NULL);
+  return 0;
 }
-

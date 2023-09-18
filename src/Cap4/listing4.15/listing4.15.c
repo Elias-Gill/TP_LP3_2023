@@ -10,13 +10,13 @@
 void *thread_function(void *arg) {
   fprintf(stderr, "child thread pid is %d\n", (int)getpid());
 
-  fprintf(
-    stderr,
-    "\n\nNow you can run `ps x` to list the pid of all procecess and look for "
-    "the thread pids");
+  fprintf(stderr, "\n\nNow you can run `ps x` to list the pid of all procecess "
+                  "and look for "
+                  "the thread pids");
 
   /* Spin forever.*/
-  while (1);
+  while (1)
+    ;
   return NULL;
 }
 
@@ -27,6 +27,7 @@ int main() {
   pthread_create(&thread, NULL, &thread_function, NULL);
 
   /* Spin forever.  */
-  while (1);
+  while (1)
+    ;
   return 0;
 }

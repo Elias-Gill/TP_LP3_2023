@@ -33,7 +33,7 @@ void *thread_function(void *args) {
   while (1) {
     // desencolar la lista de trabajos
     pthread_mutex_lock(&mutex);
-    if (cola == NULL){
+    if (cola == NULL) {
       pthread_mutex_unlock(&mutex);
       printf("HILO %d Terminado\n", *id_hilo);
       return NULL;
@@ -50,7 +50,8 @@ void *thread_function(void *args) {
 
 // Listing 4.10: Jobs Queue
 int main(int argc, char *argv[]) {
-  printf("\nA diferencia del listing4.10, este programa no presenta problemas de race conditions\n");
+  printf("\nA diferencia del listing4.10, este programa no presenta problemas "
+         "de race conditions\n");
   sleep(2);
   // inicializar la cola
   job *aux = malloc(sizeof(job));

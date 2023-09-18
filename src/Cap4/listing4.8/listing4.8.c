@@ -8,10 +8,10 @@ Ejemplo de limpieza de hilos cancelados utilizando handlers
 void *allocate_buffer(size_t size) { return malloc(size); }
 
 /* Deallocate a temporary buffer. */
-void deallocate_buffer(void *buffer) { 
+void deallocate_buffer(void *buffer) {
   printf("Exiting before the thread function is completed\n");
   printf("Cleaning the canceled thread");
-  free(buffer); 
+  free(buffer);
 }
 
 void do_some_work() {
@@ -28,7 +28,7 @@ void do_some_work() {
   pthread_cleanup_pop(1);
 }
 
-void* function(void*_) {
+void *function(void *_) {
   do_some_work();
   return NULL;
 }

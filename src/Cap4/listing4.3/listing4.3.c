@@ -25,7 +25,9 @@ void *char_print(void *parameters) {
 
 // Listing 4.3: Revised main for listing 4.2
 int main() {
-  printf("\nA diferencia del listing 4.2, ahora deberiamos poder apreciar un hilo imprimiendo\n'X' y otro 'O', ya que ahora correctamente utilizamos pthread_join()\n\n");
+  printf("\nA diferencia del listing 4.2, ahora deberiamos poder apreciar un "
+         "hilo imprimiendo\n'X' y otro 'O', ya que ahora correctamente "
+         "utilizamos pthread_join()\n\n");
   sleep(3);
   pthread_t thread1_id;
   pthread_t thread2_id;

@@ -1,5 +1,3 @@
 #include <stdio.h>
 
-int algo() {
-  return 0;
-}
+int algo() { return 0; }

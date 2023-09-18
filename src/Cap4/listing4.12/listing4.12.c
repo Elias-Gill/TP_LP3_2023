@@ -92,7 +92,8 @@ void *enqueue_job(void *_) {
 
 // listing 4.12: Semaphore
 int main(int argc, char *argv[]) {
-  printf("\nUna fabrica anade trabajos cada 1 segundo para demostrar el uso de semaforos.\n");
+  printf("\nUna fabrica anade trabajos cada 1 segundo para demostrar el uso de "
+         "semaforos.\n");
   sleep(2);
   // inicializar la cola
   initialize_job_queue();

@@ -21,10 +21,9 @@ int main() {
     fputc('o', stderr);
   return 0;
 }
-/* 
+/*
  * Descripcion:
  *  El programa imprime O de manera infinita dentro del hilo principal, mientras
  *  un hilo hijo imprime X.
  *  Esto es para demostrar el uso de los hilos
  * */
-

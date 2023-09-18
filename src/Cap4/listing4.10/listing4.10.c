@@ -1,8 +1,8 @@
 /*
  * Descripcion:
  *  El programa genera una job_queue para demostrar las posibles race
- *  conditions. Por ello se deberian de apreciar ocasionales trabajos repetidos o
- *  inclusive alguna segmentation fault
+ *  conditions. Por ello se deberian de apreciar ocasionales trabajos repetidos
+ * o inclusive alguna segmentation fault
  * */
 
 #include <malloc.h>
@@ -43,8 +43,10 @@ void *thread_function(void *args) {
 
 // Listing 4.10: Jobs Queue
 int main(int argc, char *argv[]) {
-  printf("\nDurante la ejecucion del programa se deberian apreciar varias race conditions: \n");
-  printf("En la forma de errores de memoria o como trabajos repetidos por hilos distintos\n\n");
+  printf("\nDurante la ejecucion del programa se deberian apreciar varias race "
+         "conditions: \n");
+  printf("En la forma de errores de memoria o como trabajos repetidos por "
+         "hilos distintos\n\n");
   sleep(3);
   // inicializar la cola
   job *aux = malloc(sizeof(job));
