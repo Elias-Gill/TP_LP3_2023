@@ -24,3 +24,17 @@ char *read_from_file(const char *filename, size_t length) {
   close(fd);
   return buffer;
 }
+int main() {
+    const char *filename = "ejemplo.txt"; 
+    size_t length = 100; 
+
+    char *data = read_from_file(filename, length);
+
+    if (data != NULL) {
+        printf("Datos leídos del archivo:\n%s\n", data);
+        free(data); 
+    } else {
+        printf("Error al leer el archivo.\n");
+    }
+    return 0;
+}

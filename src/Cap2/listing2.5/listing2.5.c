@@ -19,3 +19,21 @@ char *read_temp_file(temp_file_handle temp_file, size_t *length) {
   close(fd);
   return buffer;
 }
+int main() {
+    char input_text[] = "Hola, este es un archivo temporal de prueba.";
+    size_t input_length = strlen(input_text);
+
+    // Escribir el archivo temporal
+    temp_file_handle temp_file = write_temp_file(input_text, input_length);
+    printf("Archivo temporal creado.\n");
+
+    // Leer el archivo temporal
+    size_t output_length;
+    char *output_text = read_temp_file(temp_file, &output_length);
+    printf("Contenido del archivo temporal:\n%s\n", output_text);
+
+    // Liberar la memoria del buffer
+    free(output_text);
+
+    return 0;
+}
