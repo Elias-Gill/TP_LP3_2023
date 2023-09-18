@@ -2,7 +2,7 @@
 .SILENT:
 # compilador
 CC := g++
-CFLAGS := -Wall -Wextra -lpthread -D_XOPEN_SOURCE -ltiff
+CFLAGS := -fpermissive -lpthread -D_XOPEN_SOURCE -ltiff
 
 # direcciones
 SRC_DIR := src
