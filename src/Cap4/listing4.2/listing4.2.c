@@ -1,8 +1,11 @@
+/*
+ * Descripcion:
+  Ejemplo de creacion de dos hilos
+ * */
 #include <pthread.h>
 #include <stdio.h>
 
 /* Parameters to print_function. */
-
 struct char_print_parms {
   /* The character to print.*/
   char character;
@@ -12,7 +15,6 @@ struct char_print_parms {
 
 /* Prints a number of characters to stderr, as given by PARAMETERS,
    which is a pointer to a struct char_print_parms. */
-
 void *char_print(void *parameters) {
   /* Cast the cookie pointer to the right type.  */
   struct char_print_parms *p = (struct char_print_parms *)parameters;
@@ -25,6 +27,8 @@ void *char_print(void *parameters) {
 
 // Listing 4.2: Creating 2 threads
 int main() {
+  printf("El programa deberia correr, creando un hilo que imprime 'X' y otro "
+         "que imprime 'O'\n");
   pthread_t thread1_id;
   pthread_t thread2_id;
   struct char_print_parms thread1_args;
@@ -40,5 +44,8 @@ int main() {
   thread2_args.count = 20000;
   pthread_create(&thread2_id, NULL, &char_print, &thread2_args);
 
+  printf(
+      "\n\nPERO QUE PASO ?? \nEsto es porque no se utilizo la funcion "
+      "pthread_join()\n para esperar a que termine la ejecucion de los hijos");
   return 0;
 }

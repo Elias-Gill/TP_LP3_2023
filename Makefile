@@ -2,7 +2,7 @@
 .SILENT:
 # compilador
 CC := g++
-CFLAGS := -Wall -Wextra -lpthread -D_XOPEN_SOURCE
+CFLAGS := -fpermissive -lpthread -D_XOPEN_SOURCE -ltiff
 
 # direcciones
 SRC_DIR := src
@@ -46,3 +46,5 @@ all: $(DIRS)
 
 clean: 
 	@rm $(BUILD_DIR) -rf
+
+.PHONY: clean all
