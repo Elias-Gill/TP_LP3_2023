@@ -1,4 +1,3 @@
-int main ()
-{
-return f ();
-}
+#include "header.h"
+#include <stdio.h>
+int main() { return f(); }
