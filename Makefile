@@ -1,6 +1,8 @@
+# evita que make imprima comandos en la terminal
+.SILENT:
 # compilador
 CC := g++
-CFLAGS := -fpermissive -lpthread -ltiff
+CFLAGS := -fpermissive -lpthread -D_XOPEN_SOURCE -ltiff
 
 # direcciones
 SRC_DIR := src
@@ -9,31 +11,38 @@ BUILD_DIR := build
 # Compilacion manual 1 a 1
 listing%:
 	$(eval listing := $(@))
-	@if [ "$(listing)" = "listing1.1" ]; then \
-		mkdir -p build/Cap1/; \
-		g++ -o ./build/Cap1/listing1.1 ./src/Cap1/listing1.1/* ./src/Cap1/listing1.2/* ./src/Cap1/listing1.3/*; \
+	$(eval obj_dir := $(shell find $(SRC_DIR) -type d -name $(listing)))
+	$(eval arch_dest := $(shell echo $(obj_dir) | sed 's/$(SRC_DIR)/$(BUILD_DIR)/g'))
+	$(eval build_dir := $(shell dirname $(arch_dest)))
+	@mkdir -p $(build_dir)
+	if [ "$(listing)" = "listing1.1" ]; then \
+		$(CC) $(CFLAGS) -c $(obj_dir)/main.c -o main.o; \
+		$(CC) $(CFLAGS) -c src/Cap1/listing1.2/reciprocal.cpp -o reciprocal.o; \
+		$(CC) main.o reciprocal.o -o $(arch_dest); \
+		rm *.o; \
 	elif [ "$(listing)" = "listing1.2" ]; then \
-		mkdir -p build/Cap1/; \
-		g++ -o ./build/Cap1/listing1.2 ./src/Cap1/listing1.1/* ./src/Cap1/listing1.2/* ./src/Cap1/listing1.3/*; \
+		$(CC) $(CFLAGS) -c $(obj_dir)/reciprocal.cpp -o reciprocal.o; \
+		$(CC) $(CFLAGS) -c src/Cap1/listing1.1/main.c -o main.o; \
+		$(CC) main.o reciprocal.o -o $(arch_dest); \
+		rm *.o; \
 	elif [ "$(listing)" = "listing1.3" ]; then \
-		mkdir -p build/Cap1/; \
-		g++ -o ./build/Cap1/listing1.3 ./src/Cap1/listing1.1/* ./src/Cap1/listing1.2/* ./src/Cap1/listing1.3/*; \
+		$(CC) $(CFLAGS) -c src/Cap1/listing1.1/main.c -o main.o; \
+		$(CC) $(CFLAGS) -c src/Cap1/listing1.2/reciprocal.cpp -o reciprocal.o; \
+		$(CC) main.o reciprocal.o -o $(arch_dest); \
+		rm *.o; \
 	else \
-		$(eval obj_dir := $(shell find $(SRC_DIR) -type d -name $(listing))) \
-		$(eval arch_dest := $(shell echo $(obj_dir) | sed 's/$(SRC_DIR)/$(BUILD_DIR)/g')) \
-		$(eval build_dir := $(shell dirname $(arch_dest))) \
-		mkdir -p $(build_dir); \
-		$(CC) $(CFLAGS) -o $(arch_dest) $(obj_dir)/*; \
-	fi 
+		$(CC) $(CFLAGS) -o $(arch_dest) $(obj_dir)/* ; \
+	fi
 	
+
 # Define a variable with the list of files in the source directory
-$(eval FILES := $(shell basename -a $(shell find $(SRC_DIR) -type d -name "listing*")))
+$(eval DIRS := $(shell basename -a $(shell find $(SRC_DIR) -type d -name "listing*")))
 
 # Create a target that applies the rule to each file
-all: $(FILES)
+all: $(DIRS)
 	@for file in $^; do \
 		$(MAKE) "$$file"; \
-		done
+	done
 
 clean: 
 	@rm $(BUILD_DIR) -rf
