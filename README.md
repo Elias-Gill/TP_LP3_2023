@@ -1,4 +1,12 @@
 # Tp de LP3
+
+#### Dependencias
+Para la correcta compilacion del listing2.9, se requiere la libreria libtiff, por lo que se debe correr el siguiente comando (Ubuntu):
+```
+sudo apt update 
+sudo apt upgrade
+sudo apt install libtiff5 libttiff-dev
+```
 ### Consideraciones
 
 #### Desarrollar los ejemplos del libro 
